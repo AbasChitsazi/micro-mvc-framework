@@ -31,9 +31,9 @@ class Request
         header("Location: ".Url::siteUrl($route));
         die();
     }
-    public function __call(string $name,array $argument):string|null
+    public function __get(string $name):string|null
     {
-        return $this->paramas[$name] ?? null;
+        return $this->params[$name] ?? null;
     }
     public function params()
     {

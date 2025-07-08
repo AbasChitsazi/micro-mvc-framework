@@ -1,6 +1,18 @@
+# activate mod_rewrite
 RewriteEngine on
+
+# send all request to index.php if requested file not exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /index.php?path=$1 [NC,L,QSA]
 
+# prevent indexing directory
 Options -Indexes
+
+# prevent access to important file
+<FilesMatch "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
+    Require all denied
+</FilesMatch>
+
+# prevent access .git folder
+RedirectMatch 404 ^/\.git(/|$)

@@ -1,9 +1,10 @@
 <?php
 
-use App\Core\Routing\Route;
+use App\Core\Routing\Router;
 
 include "Bootstrap/init.php";
 
 
+$Router = new Router();
 
-var_dump(Route::routes());
+var_dump($Router->findRoute($request));

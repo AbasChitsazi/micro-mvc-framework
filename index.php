@@ -7,4 +7,4 @@ include "Bootstrap/init.php";
 
 $Router = new Router();
 
-var_dump($Router->findRoute($request));
+$Router->run();

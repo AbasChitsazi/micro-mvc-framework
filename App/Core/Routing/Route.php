@@ -5,10 +5,10 @@ namespace App\Core\Routing;
 class Route
 {
     private static $routes;
-    public static function add($methods, $uri, $action = null)
+    public static function add($methods, $uri, $action = null,$middleware=[])
     {
         $methods = is_array($methods) ? $methods : [$methods];
-        self::$routes[] = ['methods' => $methods, 'uri' => $uri, 'action' => $action];
+        self::$routes[] = ['methods' => $methods, 'uri' => $uri, 'action' => $action,'middleware'=> $middleware];
     }
     public static function __callStatic(string $method, array $arguments)
     {
@@ -19,7 +19,8 @@ class Route
         $method = strtoupper($method);
         $uri = $arguments[0] ?? '/';
         $action = $arguments[1] ?? null;
-        self::add($method, $uri, $action);
+        $middleware = $arguments[2] ?? null;
+        self::add($method, $uri, $action,$middleware);
     }
     public static function routes()
     {

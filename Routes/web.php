@@ -4,12 +4,14 @@ namespace Routers;
 
 
 use App\Core\Routing\Route;
-
+use App\Middleware\BlockFireFox;
+use App\Middleware\BlockIE;
 
 Route::GET('/',"HomeController@index");
 
-Route::GET('/test',function(){
-    view("archive.index");
-});
 
-Route::GET('/archive',"ArchiveController@index");
+Route::GET('/archive',"ArchiveController@index",[BlockFireFox::class,BlockIE::class]);
+
+Route::GET('/test',function(){
+    var_dump(Route::routes());
+});

@@ -1,7 +1,8 @@
 <?php
 
-function view($filename)
+function view($filename,$data=[])
 {
+    extract($data);
     $filename = str_replace('.', '/', $filename);
     $filename = BASE_PATH . "/Views/" . $filename . ".php";
     if (file_exists($filename)) {

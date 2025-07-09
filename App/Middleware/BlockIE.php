@@ -2,13 +2,18 @@
 
 namespace App\Middleware;
 
-use App\Contract\Middleware\MiddlewareInterface;
+
+use App\Middleware\Contract\MiddlewareInterface;
+use hisorange\BrowserDetect\Parser as Browser;
 
 class BlockIE implements MiddlewareInterface
 {
     public function handle()
     {
-        global $request;
-        var_dump($request);
+        if(Browser::isEdge()){
+            view('Blocks.edge.index');
+            exit;
+        };
+
     }
 }

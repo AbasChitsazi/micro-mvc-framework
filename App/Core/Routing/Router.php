@@ -4,6 +4,7 @@ namespace App\Core\Routing;
 
 use App\Core\Request;
 
+
 use Exception;
 
 class Router
@@ -17,6 +18,24 @@ class Router
         $this->request = new Request();
         $this->routes = Route::routes() ?? [];
         $this->current_route = $this->findRoute($this->request) ?? null;
+        $this->runRouteMiddleware();
+    }
+    private function runRouteMiddleware()
+    {
+        $globalmiddelware = new \App\Middleware\GlobalMiddleware;
+        $globalmiddelware->handle($this->request);
+        if(empty($this->current_route['middleware'])){
+            return;
+        }
+        foreach($this->current_route['middleware'] as $middlware){
+             $classname = $middlware;
+            if (!class_exists($classname)) {
+                throw new Exception("Class $classname Not Exist");
+            }
+            $middlware = new $classname();
+            $middlware->handle();
+            
+        }
     }
     public function findRoute(Request $request)
     {
@@ -29,12 +48,14 @@ class Router
     }
     public function run()
     {
+
         if (is_null($this->current_route)) {
             if ($this->hasUriButInvalidMethod()) {
                 $this->dispatch405();
             }
             $this->dispatch404();
         }
+
 
         $this->dispatch();
     }

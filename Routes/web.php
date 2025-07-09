@@ -10,7 +10,7 @@ use App\Middleware\BlockIE;
 Route::GET('/',"HomeController@index");
 
 
-Route::GET('/archive',"ArchiveController@index",[BlockFireFox::class,BlockIE::class]);
+Route::GET('/archive',"ArchiveController@index",[BlockIE::class]);
 
 Route::GET('/test',function(){
     var_dump(Route::routes());

@@ -7,11 +7,12 @@ use App\Core\Routing\Route;
 use App\Middleware\BlockFireFox;
 use App\Middleware\BlockIE;
 
-Route::GET('/',"HomeController@index");
+Route::GET('/', "HomeController@index");
+Route::GET('/post/{pid}', "PostController@single");
 
 
-Route::GET('/archive',"ArchiveController@index",[BlockIE::class]);
+Route::GET('/archive', "ArchiveController@index", [BlockIE::class]);
 
-Route::GET('/test',function(){
-    var_dump(Route::routes());
+Route::GET('/test', function () {
+
 });

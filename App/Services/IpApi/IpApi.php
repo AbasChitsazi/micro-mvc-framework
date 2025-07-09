@@ -6,6 +6,7 @@ use App\Services\Log\HandleLog;
 class IpApi
 {
     private $log;
+    private $IPAPIEngine = STATUS_IPAPI_ENGIN;
     public function __construct()
     {
         $this->log = new HandleLog();
@@ -14,6 +15,10 @@ class IpApi
 
     public function sendRequest($request)
     {
+        if(!$this->IPAPIEngine){
+            return;
+        }
+
         $userip = $request->ip();
         $getipdetailes = file_get_contents("http://ip-api.com/json/$userip", false, stream_context_create([
             'http' => ['timeout' => 2]

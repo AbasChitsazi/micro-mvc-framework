@@ -19,32 +19,54 @@ class Router
         $this->routes = Route::routes() ?? [];
         $this->current_route = $this->findRoute($this->request) ?? null;
         $this->runRouteMiddleware();
+        $this->runGlobalMiddleWare();
     }
     private function runRouteMiddleware()
     {
-        $globalmiddelware = new \App\Middleware\GlobalMiddleware;
-        $globalmiddelware->handle($this->request);
-        if(empty($this->current_route['middleware'])){
+
+        if (empty($this->current_route['middleware'])) {
             return;
         }
-        foreach($this->current_route['middleware'] as $middlware){
-             $classname = $middlware;
+        foreach ($this->current_route['middleware'] as $middlware) {
+            $classname = $middlware;
             if (!class_exists($classname)) {
                 throw new Exception("Class $classname Not Exist");
             }
             $middlware = new $classname();
             $middlware->handle();
-            
         }
+    }
+    private function runGlobalMiddleWare()
+    {
+        $globalmiddelware = new \App\Middleware\GlobalMiddleware;
+        $globalmiddelware->handle($this->request);
     }
     public function findRoute(Request $request)
     {
-        foreach ($this->routes as $r) {
-            if (in_array($request->method(), $r['methods']) && $request->uri() == $r['uri']) {
-                return $r;
+        foreach ($this->routes as $route) {
+            if (!in_array($request->method(), $route['methods'])){
+                return false;
+            }
+            if($this->regexMatched($route)) {
+                return $route;
             }
         }
         return null;
+    }
+    private function regexMatched($route)
+    {
+        global $request;
+        $pattern = "/^" . str_replace(['/', '{', '}'], ['\/', '(?<', '>[-%\w]+)'], $route['uri']) . "$/";
+        $result = preg_match($pattern,$this->request->uri(),$matchs);
+        if(!$result){
+            return false;
+        }
+        foreach ($matchs as $key => $match) {
+            if(!is_int($key)){
+                $request->addRouteParam($key,$match);
+            }
+        }
+        return true;
     }
     public function run()
     {

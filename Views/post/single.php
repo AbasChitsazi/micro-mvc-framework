@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Post</title>
+    <title>Post Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -27,7 +27,8 @@
     </style>
 </head>
 <body>
-    <h2>Index Post</h2>
+    <h2>Single Post</h2>
 
+    <p>Post ID: <?= $data['post_id']?></p>
 </body>
 </html>

@@ -18,8 +18,8 @@ class Router
         $this->request = new Request();
         $this->routes = Route::routes() ?? [];
         $this->current_route = $this->findRoute($this->request) ?? null;
-        $this->runRouteMiddleware();
         $this->runGlobalMiddleWare();
+        $this->runRouteMiddleware();
     }
     private function runRouteMiddleware()
     {

@@ -25,10 +25,20 @@ Route::GET('/test', function () {
     //     "family"=>"saraei",
     //     "job"=>"SEO Manager"
     // ];
-    // $users = new Users;
-    // var_dump($users->update(['id'=>5],['name'=>'abbas']));
-    // var_dump($users->delete(['id'=>5]));
-    // var_dump($users->get(['id','name'],['id'=>5]));
-    // var_dump($users->find(10);
-    // var_dump($users->getAll());
+    // $json = new Users;
+    // var_dump($json->create($data));
+    // var_dump($json->update(['id'=>5],['name'=>'abbas']));
+    // var_dump($json->delete(['id'=>5]));
+    // var_dump($json->get(['id','name'],['id'=>5]));
+    // var_dump($json->find(10);
+    // var_dump($json->getAll());
+
+    $mysql = new Users;
+    // var_dump($mysql->create(['name'=>'aabbas','email'=>'chitsazi50@gmail.com','password'=>56]));
+    // var_dump($mysql->get(['name','id'],['id'=>'3']));
+    // var_dump($mysql->find(5));
+    // var_dump($mysql->update(['name'=>'reza'],['id'=>2]));
+    // var_dump($mysql->delete(['id'=>2]));
+    var_dump($mysql->getAll());
+    
 });

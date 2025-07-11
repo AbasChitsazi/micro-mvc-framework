@@ -1,6 +1,13 @@
 # activate mod_rewrite
 RewriteEngine on
 
+# prevent access .git folder
+RewriteCond %{REQUEST_URI} ^/\.git(/|$)
+RewriteRule ^.*$ - [R=404,L]
+
+ErrorDocument 404 /404
+
+
 # send all request to index.php if requested file not exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -13,6 +20,3 @@ Options -Indexes
 <FilesMatch "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
     Require all denied
 </FilesMatch>
-
-# prevent access .git folder
-RedirectMatch 404 ^/\.git(/|$)

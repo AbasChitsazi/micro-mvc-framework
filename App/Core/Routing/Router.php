@@ -39,7 +39,7 @@ class Router
     private function runGlobalMiddleWare()
     {
         $globalmiddelware = new \App\Middleware\GlobalMiddleware;
-        $globalmiddelware->handle($this->request);
+        $globalmiddelware->handle();
     }
     public function findRoute(Request $request)
     {

@@ -47,7 +47,7 @@ class JsonBaseModel extends BaseModel
         $whiltelist = ['id', 'name', 'family', 'job'];
         foreach ($columns as  $column) {
             if (!in_array($column, $whiltelist)) {
-                throw new Exception("Field $columns Not Exist");
+                throw new Exception("Field $column Not Exist");
             }
         }
         $result = [];

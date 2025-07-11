@@ -18,7 +18,7 @@ class MysqlBaseModel extends BaseModel
     public function create(array $data): int
     {
         $this->connection->insert($this->table,$data);
-        return $this->connection->id();
+        return (int)$this->connection->id();
     }
     public function find($id): array|null|object
     {

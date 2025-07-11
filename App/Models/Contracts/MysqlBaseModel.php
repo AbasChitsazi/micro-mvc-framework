@@ -23,6 +23,7 @@ class MysqlBaseModel extends BaseModel
     public function find($id): array|null|object
     {
         return $this->connection->get($this->table,"*", [$this->primeryKey => $id]);
+        
 
     }
     public function get(array $columns, array $where) 

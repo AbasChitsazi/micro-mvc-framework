@@ -52,8 +52,8 @@ mvc.local/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd mvc.local
+   git clone https://github.com/AbasChitsazi/micro-mvc-framework.git
+   cd micro-mvc-framework
    ```
 
 2. **Install dependencies**
